@@ -7,6 +7,7 @@
 <body>
 <div style=" background-color: #feeeed;width: 285px;" id="Show_Color">
     <!-- 调色板部分DIV-->
+
     <div id="Show_Color_plate">
         <canvas style="width: 100%;height:10px;border:1px solid #404040;" id="myCanvas" title="111"
                 onmouseover="canvasMouseOver(event)" onmousemove="canvasMouseMove(event)" onclick="GetColor(event)">
@@ -102,7 +103,7 @@
     function canvasMouseOver(event) {
 
         //重新计算title
-        var e = e || window.event;
+        // var e = e || window.event;
         console.log("canvasMouseOver");
 
     }
@@ -111,8 +112,9 @@
      * @param event
      */
     function canvasMouseMove(event) {
-        var m_SetNum = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
-        canvas.title = m_SetNum;
+
+        canvas.title = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
+
         canvas.style.cursor = "crosshair";
     }
 
@@ -132,15 +134,16 @@
         var g = imagedata.data[1];
         var b = imagedata.data[2];
         var a = imagedata.data[3];
-        var m_rgb = "rgb(" + r + "," + g + "," + b + ")";
+        var m_rgb = "rgb(" + r + "," + g + "," + b + "," + a + ")";
+
         console.log(m_rgb);
         console.log(imagedata);
         var Show_Color_detail_canvas = document.getElementById('Show_Color_detail_canvas');
         Show_Color_detail_canvas.style.background = m_rgb;
         var Show_Color_detail_a = document.getElementById('Show_Color_detail_a');
-        var m_SetNum = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
 
-        Show_Color_detail_a.innerHTML = m_SetNum;
+        Show_Color_detail_a.innerHTML = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
+
 
     }
 </script>

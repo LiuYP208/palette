@@ -1,0 +1,35 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Ada template
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
+### SVN template
+.svn/
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen### Vim template
+# swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+# session
+Session.vim
+# temporary
+.netrwhist
+*~
+# auto-generated tag files
+tags
+
+.gitignore
+.idea/.name
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/palette.iml
+.idea/workspace.xml

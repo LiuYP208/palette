@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>调色板 - js载入版本demo</title>
+</head>
+<body>
+<div style="width: 285px;">
+    <div id="testadd1">
+    </div>
+</div>
+<button onclick="ClickAdd()">点击添加</button>
+</body>
+
+<script type="application/javascript" src="js/ColorPallate.js"></script>
+<script type="application/javascript" src="js/jquery.min.js"></script>
+<script>
+    //http://10.24.4.121:4005/cbjson/CLM_0_1.cb
+    var testJson = {
+        "single": [
+            [
+                65531.0,
+                [
+                    10,
+                    10,
+                    250
+                ],
+                "海洋"
+            ],
+            [
+                65529.0,
+                [
+                    255,
+                    255,
+                    255
+                ],
+                "冰雪"
+            ],
+            [
+                65533.0,
+                [
+                    227,
+                    227,
+                    225
+                ],
+                "云"
+            ]
+        ],
+        "gradient": [
+            [
+                220.0,
+                [
+                    120,
+                    155,
+                    242
+                ]
+            ],
+            [
+                230.0,
+                [
+                    176,
+                    224,
+                    230
+                ]
+            ],
+            [
+                240.0,
+                [
+                    32,
+                    178,
+                    170
+                ]
+            ],
+            [
+                250.0,
+                [
+                    154,
+                    205,
+                    50
+                ]
+            ],
+            [
+                260.0,
+                [
+                    46,
+                    139,
+                    87
+                ]
+            ],
+            [
+                270.0,
+                [
+                    245,
+                    230,
+                    190
+                ]
+            ],
+            [
+                280.0,
+                [
+                    222,
+                    184,
+                    135
+                ]
+            ],
+            [
+                290.0,
+                [
+                    255,
+                    225,
+                    0
+                ]
+            ],
+            [
+                300.0,
+                [
+                    255,
+                    165,
+                    0
+                ]
+            ],
+            [
+                310.0,
+                [
+                    255,
+                    69,
+                    0
+                ]
+            ],
+            [
+                320.0,
+                [
+                    178,
+                    34,
+                    34
+                ]
+            ],
+            [
+                330.0,
+                [
+                    255,
+                    182,
+                    193
+                ]
+            ],
+            [
+                340.0,
+                [
+                    255,
+                    20,
+                    147
+                ]
+            ]
+        ],
+        "level": [],
+        "name": "",
+        "offset": 0.0,
+        "slope": 1.0,
+        "unit": "K"
+    };
+    function ClickAdd() {
+
+        var m_Pallete = new ColorPallate();
+        m_Pallete.init_palette("testadd1", testJson);
+    }
+</script>
+</html>

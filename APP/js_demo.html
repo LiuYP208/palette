@@ -5,11 +5,20 @@
     <title>调色板 - js载入版本demo</title>
 </head>
 <body>
-<div style="width: 285px;">
-    <div id="testadd1">
+<div id="LST">
+    <div style="width: 285px;">
+        <div id="LST_palette">
+        </div>
     </div>
+    <button onclick="ClickAddLST()">点击添加LST</button>
 </div>
-<button onclick="ClickAdd()">点击添加</button>
+<div id="CLM">
+    <div style="width: 285px;">
+        <div id="CLM_palette">
+        </div>
+    </div>
+    <button onclick="ClickAddCLM()">点击添加CLM</button>
+</div>
 </body>
 
 <script type="application/javascript" src="js/ColorPallate.js"></script>
@@ -156,12 +165,20 @@
         "name": "",
         "offset": 0.0,
         "slope": 1.0,
-        "unit": "K"
+        "unit": "K",
+        "palette_mode": "gradient"
     };
     function ClickAdd() {
-
         var m_Pallete = new ColorPallate();
         m_Pallete.init_palette("testadd1", testJson);
+    }
+    function ClickAddLST() {
+        var m_Pallete = new ColorPallate();
+        m_Pallete.init_palette("LST_palette", testJson);
+    }
+    function ClickAddCLM() {
+        var m_Pallete = new ColorPallate();
+        m_Pallete.init_palette("CLM_palette", testJson);
     }
 </script>
 </html>

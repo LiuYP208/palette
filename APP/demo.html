@@ -10,7 +10,8 @@
 
     <div id="Show_Color_plate">
         <canvas style="width: 100%;height:10px;border:1px solid #404040;" id="myCanvas" title="111"
-                onmouseover="canvasMouseOver(event)" onmousemove="canvasMouseMove(event)" onclick="GetColor(event)">
+                onmouseover="canvasMouseOver(event)" onmousemove="canvasMouseMove(event)" onmouseout="canvasMouseOut()"
+                onclick="GetColor(event)">
         </canvas>
         <div style="width:100%;height: 12px; font-size: 8px;">
             <a style="float: left;">220</a>
@@ -32,7 +33,8 @@
     </div>
     <!--悬浮显示部分DIV-->
     <div id="Show_Color_detail"
-         style="width: 120px;height: 30px;margin-left: 295px; margin-top:-40px;float: left; border: 1px solid #7d7d7d;">
+         style="width: 120px;height: 30px;margin-left: 295px; margin-top:-40px;float: left; border: 1px solid #7d7d7d;
+         display:none;">
         <canvas style="width: 22px;height: 22px; float: left;background-color: #ffce27;margin: 4px;"
                 id="Show_Color_detail_canvas">
         </canvas>
@@ -97,24 +99,37 @@
 
 
     /**
-     * 移动canvas
+     *canvas 中鼠标移动
      * @param event
      */
     function canvasMouseOver(event) {
-
-        //重新计算title
-        // var e = e || window.event;
-        console.log("canvasMouseOver");
+        var Show_Color_detail_canvas = document.getElementById('Show_Color_detail');
+        Show_Color_detail_canvas.style.display = "block";
     }
     /**
      * 鼠标移动
      * @param event
      */
     function canvasMouseMove(event) {
-
         //计算title详情
         canvas.title = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
         canvas.style.cursor = "crosshair";
+        var context = canvas.getContext("2d");
+        //获取鼠标当前点
+        var imagedata = context.getImageData(event.clientX, event.clientY, 1, 1);
+        var m_rgb = "rgb(" + imagedata.data[0] + "," + imagedata.data[1] + "," + imagedata.data[2] + ")";
+        //详情中canvas 颜色 显示部分
+        var Show_Color_detail_canvas = document.getElementById('Show_Color_detail_canvas');
+        Show_Color_detail_canvas.style.background = m_rgb;
+        //详情中文字部分
+        var Show_Color_detail_a = document.getElementById('Show_Color_detail_a');
+        Show_Color_detail_a.innerHTML = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
+    }
+
+
+    function canvasMouseOut() {
+        var Show_Color_detail_canvas = document.getElementById('Show_Color_detail');
+        Show_Color_detail_canvas.style.display = "none";
     }
 
 
@@ -124,27 +139,6 @@
      * @constructor
      */
     function GetColor(event) {
-        var context = canvas.getContext("2d");
-
-        //获取鼠标当前点
-        var sx = event.clientX;
-        var sy = event.clientY;
-
-        var imagedata = context.getImageData(sx, sy, 1, 1);
-        var r = imagedata.data[0];
-        var g = imagedata.data[1];
-        var b = imagedata.data[2];
-      //  var a = imagedata.data[3];
-        var m_rgb = "rgb(" + r + "," + g + "," + b + ")";
-
-        console.log(m_rgb);
-        console.log(imagedata);
-        var Show_Color_detail_canvas = document.getElementById('Show_Color_detail_canvas');
-        Show_Color_detail_canvas.style.background = m_rgb;
-        var Show_Color_detail_a = document.getElementById('Show_Color_detail_a');
-
-        Show_Color_detail_a.innerHTML = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
-
 
     }
 </script>

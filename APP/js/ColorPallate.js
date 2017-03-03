@@ -18,13 +18,13 @@ var ColorPallate = function () {
         self.target_div = document.getElementById(m_DivID);
         //解析 m_Json
         self.m_BeginJson = m_Json;
-        //根据json 初始化 显示模式 分为3 钟模式  1.单块模式 -single 2.连续色块模式 -gradient 3.渐变调色板模式 -gradient_k 0.默认模式-default
+        //根据json 初始化 显示模式 分为3 钟模式  1.单块模式 -single 2.渐变调色板模式 -gradient 3.阈值调色板模式 -range 0.默认模式-default
         init_ShowMode();
         //根据显示模式 初始化
         init_div();
     };
 
-    //显示模式  1.单块模式 -single 2.连续色块模式 -gradient 3.渐变调色板模式 -gradient_k 0.默认模式-default
+    //显示模式  1.单块模式 -single 2.渐变调色板模式 -gradient 3.阈值调色板模式 -range 0.默认模式-default
     var palette_Mode = "default";
     var single_data = [];
     var gradient_data = [];
@@ -60,9 +60,9 @@ var ColorPallate = function () {
                     init_json_gradient();
                     break;
                 }
-                case "gradient_k":
+                case "range":
                 {
-                    palette_Mode = "gradient_k";
+                    palette_Mode = "range";
                     break;
                 }
             }

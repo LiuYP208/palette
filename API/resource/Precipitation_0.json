@@ -1,0 +1,150 @@
+{
+  "single": [],
+  "gradient": [],
+  "level": [],
+  "range": [
+    {
+      "range_value": [
+        0,
+        0
+      ],
+      "range_rgb": [
+        0,
+        0,
+        0
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        0,
+        1
+      ],
+      "range_rgb": [
+        255,
+        255,
+        255
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        1,
+        2
+      ],
+      "range_rgb": [
+        149,
+        255,
+        175
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        2,
+        4
+      ],
+      "range_rgb": [
+        0,
+        176,
+        0
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        4,
+        6
+      ],
+      "range_rgb": [
+        0,
+        156,
+        232
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        6,
+        8
+      ],
+      "range_rgb": [
+        0,
+        0,
+        255
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        8,
+        10
+      ],
+      "range_rgb": [
+        0,
+        81,
+        40
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        10,
+        20
+      ],
+      "range_rgb": [
+        213,
+        0,
+        213
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        20,
+        50
+      ],
+      "range_rgb": [
+        189,
+        95,
+        0
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": [
+        50,
+        null
+      ],
+      "range_rgb": [
+        128,
+        0,
+        0
+      ],
+      "range_describe": ""
+    },
+    {
+      "range_value": 65535,
+      "range_rgb": [
+        255,
+        255,
+        255
+      ],
+      "range_describe": "外太空"
+    },
+    {
+      "range_value": 65532,
+      "range_rgb": [
+        192,
+        192,
+        192
+      ],
+      "range_describe": "卫星天顶角>=80"
+    }
+  ],
+  "name": "",
+  "offset": 0.0,
+  "slope": 1.0,
+  "unit": "mm",
+  "palette_mode": "range"
+}

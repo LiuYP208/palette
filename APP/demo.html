@@ -69,7 +69,7 @@
     var div_DetailShow = false;
     FillColor();
     function FillColor() {
-        var grd = ctx.createLinearGradient(0, 0, 500, 0);
+        var grd = ctx.createLinearGradient(0, 0, m_MaxWidth, 0);
         grd.addColorStop(0, "rgb(120, 155, 242)");
         grd.addColorStop(1 / 12, "rgb(176, 224, 230)");
         grd.addColorStop(1 / 12 * 2, "rgb(32, 178, 170)");
@@ -105,7 +105,6 @@
         //重新计算title
         // var e = e || window.event;
         console.log("canvasMouseOver");
-
     }
     /**
      * 鼠标移动
@@ -113,16 +112,18 @@
      */
     function canvasMouseMove(event) {
 
+        //计算title详情
         canvas.title = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
-
         canvas.style.cursor = "crosshair";
     }
 
 
+    /**
+     * 获取颜色
+     * @param event
+     * @constructor
+     */
     function GetColor(event) {
-
-        var canvas = document.getElementById('myCanvas');
-
         var context = canvas.getContext("2d");
 
         //获取鼠标当前点
@@ -133,8 +134,8 @@
         var r = imagedata.data[0];
         var g = imagedata.data[1];
         var b = imagedata.data[2];
-        var a = imagedata.data[3];
-        var m_rgb = "rgb(" + r + "," + g + "," + b + "," + a + ")";
+      //  var a = imagedata.data[3];
+        var m_rgb = "rgb(" + r + "," + g + "," + b + ")";
 
         console.log(m_rgb);
         console.log(imagedata);

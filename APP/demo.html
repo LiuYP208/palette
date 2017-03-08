@@ -69,11 +69,11 @@
     var m_MaxHeight = canvas.height;
     //是否显示详情界面
     var div_DetailShow = false;
-    FillColor();
+     FillColor();
     function FillColor() {
         var grd = ctx.createLinearGradient(0, 0, m_MaxWidth, 0);
-        grd.addColorStop(0, "rgb(120, 155, 242)");
-        grd.addColorStop(1 / 12, "rgb(176, 224, 230)");
+        grd.addColorStop(0, "rgb(0, 0, 255)");
+  /*      grd.addColorStop(1 / 12, "rgb(176, 224, 230)");
         grd.addColorStop(1 / 12 * 2, "rgb(32, 178, 170)");
         grd.addColorStop(1 / 12 * 3, "rgb(154, 205, 50)");
         grd.addColorStop(1 / 12 * 4, "rgb(46, 139, 87)");
@@ -83,17 +83,17 @@
         grd.addColorStop(1 / 12 * 8, "rgb(255, 165, 0)");
         grd.addColorStop(1 / 12 * 9, "rgb(255, 69, 0)");
         grd.addColorStop(1 / 12 * 10, "rgb(178, 34, 34)");
-        grd.addColorStop(1 / 12 * 11, "rgb(255, 182, 193)");
-        grd.addColorStop(1, "rgb(255, 20, 147)");
+        grd.addColorStop(1 / 12 * 11, "rgb(255, 182, 193)");*/
+        grd.addColorStop(1, "rgb(255, 0, 0)");
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, m_MaxWidth, m_MaxHeight);
     }
     //FillColor1();
     function FillColor1() {
         var ctx = canvas.getContext('2d');
-        ctx.fillStyle = "rgb(120, 155, 242)";
+        ctx.fillStyle = "rgb(0, 0, 255)";
         ctx.fillRect(0, 0, 20, m_MaxHeight);
-        ctx.fillStyle = "rgb(255, 182, 193)";
+        ctx.fillStyle = "rgb(255, 0, 0)";
         ctx.fillRect(20, 0, 20, m_MaxHeight);
     }
 

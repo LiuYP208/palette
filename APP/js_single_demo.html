@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>调色板 - js载入版本demo</title>
+    <title>js动态添加单色调色板demo</title>
 </head>
 <body>
 <div id="LST">
@@ -10,34 +10,23 @@
         <div id="LST_palette" style="width: 285px;">
         </div>
     </div>
-    <button onclick="ClickAddLST()">点击添加LST</button>
+    <br>
+    <hr>
+    <button onclick="ClickAddLST()">点击添加测试1</button>
 </div>
 <div id="CLM">
     <div style="width: 285px;">
         <div id="CLM_palette" style="width: 285px;">
         </div>
     </div>
-    <button onclick="ClickAddCLM()">点击添加CLM</button>
-</div>
-<div id="CIX">
-    <div style="width: 285px;">
-        <div id="CIX_palette" style="width: 285px;">
-        </div>
-    </div>
-    <button onclick="ClickAddCIX_1()">点击添加CLM_1</button>
-</div>
-<div id="CIX1">
-    <div style="width: 285px;">
-        <div id="CIX1_palette" style="width: 285px;">
-        </div>
-    </div>
-    <button onclick="ClickAddCIX_2()">点击添加CLM_2</button>
-
+    <br>
+    <hr>
+    <button onclick="ClickAddCLM()">点击添加测试2</button>
 </div>
 </body>
-
 <script type="application/javascript" src="js/ColorPallate.js"></script>
 <script type="application/javascript" src="js/jquery.min.js"></script>
+
 <script>
     //http://10.24.4.121:4005/cbjson/CLM_0_1.cb
     var testJson = {
@@ -181,105 +170,159 @@
         "offset": 0.0,
         "slope": 1.0,
         "unit": "K",
-        "palette_mode": "gradient"
-    };
-    var CIX_Json_1 = {
-        "gradient": [
-            [
-                -1.0,
-                [
-                    255,
-                    255,
-                    255
-                ]
-            ],
-            [
-                5.0,
-                [
-                    0,
-                    0,
-                    0
-                ]
-            ]
-        ],
-        "level": [],
-        "name": "CIX",
-        "offset": 0.0,
-        "single": [
-            [
-                0,
-                [
-                    255,
-                    255,
-                    255
-                ],
-                "BackGround"
-            ],
-            [
-                1,
-                [
-                    128,
-                    128,
-                    64
-                ],
-                "CI_Rank1"
-            ],
-            [
-                2,
-                [
-                    128,
-                    64,
-                    0
-                ],
-                "CI_Rank2"
-            ],
-            [
-                3,
-                [
-                    255,
-                    128,
-                    0
-                ],
-                "CI_Rank3"
-            ],
-            [
-                4,
-                [
-                    255,
-                    128,
-                    128
-                ],
-                "CI_Rank4"
-            ]
-        ],
-        "slope": 1.0,
-        "unit": "",
         "palette_mode": "single"
     };
-    var CIX_Json_2 = {
+    var testJson1 = {
+        "single": [
+            [
+                65531.0,
+                [
+                    20,
+                    20,
+                    250
+                ],
+                "海洋"
+            ],
+            [
+                65529.0,
+                [
+                    255,
+                    255,
+                    255
+                ],
+                "冰雪"
+            ],
+            [
+                65533.0,
+                [
+                    227,
+                    227,
+                    225
+                ],
+                "云"
+            ], [
+                65531.0,
+                [
+                    10,
+                    10,
+                    250
+                ],
+                "海洋1"
+            ]
+        ],
         "gradient": [
             [
-                -1.0,
+                220.0,
                 [
-                    0,
-                    0,
-                    255
+                    120,
+                    155,
+                    242
                 ]
             ],
             [
-                1.0,
+                230.0,
+                [
+                    176,
+                    224,
+                    230
+                ]
+            ],
+            [
+                240.0,
+                [
+                    32,
+                    178,
+                    170
+                ]
+            ],
+            [
+                250.0,
+                [
+                    154,
+                    205,
+                    50
+                ]
+            ],
+            [
+                260.0,
+                [
+                    46,
+                    139,
+                    87
+                ]
+            ],
+            [
+                270.0,
+                [
+                    245,
+                    230,
+                    190
+                ]
+            ],
+            [
+                280.0,
+                [
+                    222,
+                    184,
+                    135
+                ]
+            ],
+            [
+                290.0,
                 [
                     255,
-                    0,
+                    225,
                     0
+                ]
+            ],
+            [
+                300.0,
+                [
+                    255,
+                    165,
+                    0
+                ]
+            ],
+            [
+                310.0,
+                [
+                    255,
+                    69,
+                    0
+                ]
+            ],
+            [
+                320.0,
+                [
+                    178,
+                    34,
+                    34
+                ]
+            ],
+            [
+                330.0,
+                [
+                    255,
+                    182,
+                    193
+                ]
+            ],
+            [
+                340.0,
+                [
+                    255,
+                    20,
+                    147
                 ]
             ]
         ],
         "level": [],
-        "palette_mode": "gradient"
+        "name": "",
+        "offset": 0.0,
+        "slope": 1.0,
+        "unit": "K",
+        "palette_mode": "single"
     };
-
-
     function ClickAdd() {
         var m_Pallete = new ColorPallate();
         m_Pallete.init_palette("testadd1", testJson);
@@ -290,15 +333,7 @@
     }
     function ClickAddCLM() {
         var m_Pallete = new ColorPallate();
-        m_Pallete.init_palette("CLM_palette", testJson);
-    }
-    function ClickAddCIX_1() {
-        var m_Pallete = new ColorPallate();
-        m_Pallete.init_palette("CIX_palette", CIX_Json_1);
-    }
-    function ClickAddCIX_2() {
-        var m_Pallete = new ColorPallate();
-        m_Pallete.init_palette("CIX1_palette", CIX_Json_2);
+        m_Pallete.init_palette("CLM_palette", testJson1);
     }
 </script>
 </html>

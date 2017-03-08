@@ -25,10 +25,10 @@ var ColorPallate = function () {
     };
 
     //显示模式  1.单块模式 -single 2.渐变调色板模式 -gradient 3.阈值调色板模式 -range 0.默认模式-default
-    var palette_Mode = "default";
-    var single_data = [];
+    self.palette_Mode = "default";
+    self.single_data = [];
     var gradient_data = [];
-    var single_Num = 0;
+    self.single_Num = 0;
     var gradient_Num = 0;
     var gradient_Min = 0;
     var gradient_Max = 0;
@@ -47,22 +47,29 @@ var ColorPallate = function () {
     var init_ShowMode = function () {
         //判断模式
         if (self.m_BeginJson.palette_mode != undefined) {
+            //根据模式 进行json初始化
             switch (self.m_BeginJson.palette_mode) {
                 case "single":
                 {
-                    palette_Mode = "single";
+                    self.palette_Mode = "single";
                     init_json_single();
                     break;
                 }
                 case "gradient":
                 {
-                    palette_Mode = "gradient";
+                    self.palette_Mode = "gradient";
                     init_json_gradient();
                     break;
                 }
                 case "range":
                 {
-                    palette_Mode = "range";
+                    self.palette_Mode = "range";
+                    break;
+                }
+                default:
+                {
+                    self.palette_Mode = "unknown";
+                    console.log("当前模式未知：" + self.m_BeginJson.palette_mode);
                     break;
                 }
             }
@@ -74,9 +81,9 @@ var ColorPallate = function () {
      */
     function init_json_single() {
         if (self.m_BeginJson.single != undefined) {
-            single_data = self.m_BeginJson.single;
+            self.single_data = self.m_BeginJson.single;
             //解析single
-            single_Num = single_data.length;
+            self.single_Num = self.single_data.length;
 
         }
     }
@@ -99,18 +106,68 @@ var ColorPallate = function () {
      */
     var init_div = function () {
         //通过主DIV 设置
-        var m_SingleHtml = init_single();
-        var m_gradientHtml = init_gradient();
+        var palette_Html = '';
+        switch (self.palette_Mode) {
+            case "single":
+            {
+                palette_Html = init_single();
+                break;
+            }
+            case "gradient":
+            {
+                palette_Html = init_gradient();
+                break;
+            }
+            case "range":
+            {
+                //todo 添加分块调色板
+                //  self.palette_Mode = "range";
+                break;
+            }
+            default:
+            {
+                console.log("当前模式未知：" + self.palette_Mode);
+                break;
+            }
+        }
+
         var m_detailHtml = init_detail();
-        var TotalInner = m_SingleHtml + m_gradientHtml + m_detailHtml;
+        var TotalInner = palette_Html + m_detailHtml;
         //内容赋值入 html
         self.target_div.innerHTML = TotalInner;
-        init_gradient_canvas();
-        try {
-            init_gradient_func();
-        } catch (e) {
-            console.log(e);
+
+        switch (self.palette_Mode) {
+            case "single":
+            {
+                //todo 初始化 single 事件
+                init_single_func();
+                break;
+            }
+            case "gradient":
+            {
+                //初始化 渐变调色板 div
+                init_gradient_canvas();
+                //对调色板div 中canvas的各个事件进行处理
+                try {
+                    init_gradient_func();
+                } catch (e) {
+                    console.log(e);
+                }
+                break;
+            }
+            case "range":
+            {
+                //todo 添加分块调色板
+                //  self.palette_Mode = "range";
+                break;
+            }
+            default:
+            {
+                console.log("当前模式未知：" + self.palette_Mode);
+                break;
+            }
         }
+
     };
 
     /**
@@ -118,7 +175,30 @@ var ColorPallate = function () {
      * @returns {string}
      */
     var init_single = function () {
-        var m_inner = "";
+        var m_inner = '<div id="Show_Color_plate" style="width: 100%">';
+        //根据当前的singleNum 进行显示
+        if (self.single_Num > 0) {
+            // m_inner = '<div id="Show_Color_plate">';
+            for (var i = 0; i < self.single_Num; i++) {
+                var m_single_data_i = self.single_data[i];
+                // var m_single_data_i_value = m_single_data_i[0];
+                var m_single_data_i_color = m_single_data_i[1];
+                var m_single_data_i_color_rgb = "rgb(" + m_single_data_i_color[0] + "," +
+                    m_single_data_i_color[1] + "," + m_single_data_i_color[2] + ")";
+                var m_single_data_i_title = m_single_data_i[2];
+                var m_singleMember = '<div>'
+                    + '<canvas style="width: 20px; height: 20px; float: left; border:1px solid #404040;margin: 2px;'
+                    + 'background-color: ' + m_single_data_i_color_rgb + ';"'
+                    + 'title="' + m_single_data_i_title + '"'
+                    + 'class="single_canvas_' + self.target_div_ID + '"></canvas>'
+                    + '</div>';
+                m_inner = m_inner + m_singleMember;
+            }
+            /*  'onmouseout="canvasMouseOut(event)"' +
+             'onmouseover="canvasMouseOver(event)"' +
+             'onmousemove="canvasMouseMove(event)"' +*/
+        }
+        m_inner = m_inner + '</div>';
         return m_inner;
     };
 
@@ -126,6 +206,7 @@ var ColorPallate = function () {
     self.gradient_id = '';
     //渐变 canvas id
     self.gradient_canvas_id = '';
+
     //初始化 过度列表
     var init_gradient = function () {
         self.gradient_id = self.target_div_ID + "_gradient";
@@ -134,19 +215,21 @@ var ColorPallate = function () {
             + "<canvas style='width: 100%;height:10px;border:1px solid #404040;' id='" + self.gradient_canvas_id + "' title=''> "
             + "</canvas>"
             + "<div style='width:100%;height: 12px; font-size: 8px;'>"
-            + "<a style='float: left;'>" + gradient_Min + "</a>"
-            + "<a style='float: right;'>" + gradient_Max + "</a>"
+            + "<a style='float: left;'>" + gradient_Min.toFixed(2) + "</a>"
+            + "<a style='float: right;'>" + gradient_Max.toFixed(2) + "</a>"
             + "</div>"
             + "</div>";
         return m_inner;
     };
-    //初始化事件
+
+    //初始化事件 gradient_func
     var init_gradient_func = function () {
         var m_Canvas = document.getElementById(self.gradient_canvas_id);
         m_Canvas.onmouseover = gradient_canvasMouseOver;
         m_Canvas.onmouseout = gradient_canvasMouseOut;
         m_Canvas.onmousemove = gradient_canvasMouseMove;
     };
+
 
     /**
      * 渐变调色板 鼠标移入操作 显示详情界面
@@ -174,21 +257,52 @@ var ColorPallate = function () {
         //计算title详情
         var canvas = document.getElementById(self.gradient_canvas_id);
         var m_MaxWidth = canvas.width;
-        canvas.title = gradient_Min + parseInt((gradient_Max - gradient_Min) / m_MaxWidth * event.clientX);
+        canvas.title = ( gradient_Min + ((gradient_Max - gradient_Min) / m_MaxWidth * event.clientX)).toFixed(2);
         canvas.style.cursor = "crosshair";
-
         //获取鼠标当前点
         var context = canvas.getContext("2d");
-        var imagedata = context.getImageData(event.clientX, event.clientY, 1, 1);
+        var imagedata = context.getImageData(event.clientX, 2, 1, 1);
         var m_rgb = "rgb(" + imagedata.data[0] + "," + imagedata.data[1] + "," + imagedata.data[2] + ")";
         //详情中canvas 颜色 显示部分
         var Show_Color_detail_canvas = document.getElementById(self.detail_canvas_id);
         Show_Color_detail_canvas.style.background = m_rgb;
         //详情中文字部分
         var Show_Color_detail_a = document.getElementById(self.detail_a_id);
-        Show_Color_detail_a.innerHTML = 220 + parseInt((340 - 220) / m_MaxWidth * event.clientX);
+        Show_Color_detail_a.innerHTML = (gradient_Min + ((gradient_Max - gradient_Min) / m_MaxWidth * event.clientX)).toFixed(2);
     };
 
+    //初始化 single_func
+    var init_single_func = function () {
+        var m_Canvas = document.getElementsByClassName('single_canvas_' + self.target_div_ID);
+        for (var i = 0; i < m_Canvas.length; i++) {
+            m_Canvas[i].onmouseover = single_canvasMouseOver;
+            m_Canvas[i].onmouseout = single_canvasMouseOut;
+            m_Canvas[i].onmousemove = single_canvasMouseMove;
+        }
+    };
+
+    //single canvas 鼠标进入
+    var single_canvasMouseOver = function (event) {
+        var m_event = event.currentTarget;
+        var csstext = m_event.style.cssText;
+        var title = m_event.title;
+        var Show_Color_detail_canvas = document.getElementById(self.detail_canvas_id);
+        Show_Color_detail_canvas.style.cssText = csstext;
+        var Show_Color_detail_a = document.getElementById(self.detail_a_id);
+        Show_Color_detail_a.innerHTML = title;
+        var Show_Color_detail = document.getElementById(self.detail_id);
+        Show_Color_detail.style.display = "block";
+    };
+
+    //single canvas 鼠标移出
+    var single_canvasMouseOut = function (event) {
+        var Show_Color_detail_canvas = document.getElementById(self.detail_id);
+        Show_Color_detail_canvas.style.display = "none";
+    };
+
+    //single canvas 鼠标移动
+    var single_canvasMouseMove = function (event) {
+    };
 
     /**
      *根据json中 渐变调色板的内容，解析
